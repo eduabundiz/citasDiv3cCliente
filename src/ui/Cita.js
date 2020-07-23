@@ -1,18 +1,20 @@
-import React,{useContext} from 'react';
+import React, { useState, useContext} from 'react';
 import './cita.css';
 
+
+
 const Cita = ({cita}) => {
+
+
 
     // context de firebase para cambios en la BD    
 
     const {nombre,codigo,date,time,centro,carrera,subject} = cita
     const dia = new Date(date*1000).toLocaleDateString("es-ES")
     return ( 
-        <>
+        <>            
             <div className="contenedor-cita">
-    <p className="date">
-        Fecha: {dia}
-    </p>               
+                <p className="date"> Fecha: {dia} </p>               
                 <p>Hora: {time} </p>
                 <p>Nombre: {nombre}</p>
                 <p>Código: {codigo}</p>
