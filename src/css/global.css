@@ -8,3 +8,109 @@
 }
 @import '~react-agenda/build/styles.css';
 @import '~react-datetime/css/react-datetime.css';
+
+.containerImage{
+    position: relative;
+}
+.imageBackground{    
+    width: 100%;
+    height: 100vh;    
+    background-image: url('../img/cucei_bg.jpg');
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.logoUdg{
+    background-image: url('../img/logoudgvectores_1_origsdaasss.png');
+    position: absolute;
+    top: 0;    
+    margin-left: 10px;
+    width: 30%;
+    height: 25%;    
+    background-size: cover;       
+    
+}
+.baseLogin{
+    background-color: rgba(255, 255, 255, .75);    
+    height: 70%;    
+    width: 25%;
+    border-radius: 5%;
+    min-height: min-content;        
+    
+}
+
+.logoDivec{
+    size: cover;
+    width:50%;
+}
+p{
+    margin-bottom: 0;
+    margin-top: 0;
+
+}
+.input{
+    border-radius: 5px;
+    border-color: rgba(0,0, 0, .45);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1em;
+    width: 70%;
+    /* min-height: 1.5em; */    
+}
+.btnSubmit{
+    background-color: rgba(0, 0, 0,.4);
+    width: 60%;
+    height: 50px;
+    border-radius: 5%;
+    font-size: larger;
+    font-weight: bold;
+}
+.btnSubmit:hover{
+    background-color: rgba(4, 96, 109, .8);
+    font-size: larger;
+    font-weight: bold;
+    border-color: rgb(4, 96, 109);
+}
+.form{
+    
+    
+}
+.label{
+    font-weight: 700;
+}
+@media(max-width: 1024px){
+    .baseLogin{
+        width: 60%;
+    }
+    .logoDivec{
+        width: 50%;        
+    }
+    .input{
+        width: 50%;
+    }
+    
+}
+@media(max-width:720px ){
+    .baseLogin{
+        width: 80%;
+    }
+    .logoDivec{
+        width: 30%;
+    }
+    .logoUdg{
+        width: 30%;
+        display: none;
+    }
+}
+@media(max-height: 460px ){
+    .baseLogin{
+        width: 70%;
+        height: 90%;
+    }
+    .logoDivec{
+        width: 20%;
+    }
+}

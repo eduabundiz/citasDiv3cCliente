@@ -18,49 +18,7 @@ require('moment/locale/es.js');
 
 
 var items = [
-  {
-   _id            :guid(),
-    name          : 'Meeting , dev staff!',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate(), 12, 0),
-    classes       : 'color-1 color-4'
-  },
-  {
-   _id            :guid(),
-    name          : 'Working lunch , Holly',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 13, 0),
-    classes       : 'color-2'
-  },
-  {
-   _id            :guid(),
-    name          : 'Conference , plaza',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 11 , 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 14 ,30),
-    classes       : 'color-4'
-  },
-  {
-   _id            :'event-4',
-    name          : 'Customers issues review',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 10, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+2, 15, 0),
-    classes       : 'color-3'
 
-  },
-  {
-    _id           :'event-5',
-    name          : 'Group activity',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, 10, 0),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+3, 16, 30),
-    classes       : 'color-4'
-  },
-  {
-    _id           :'event-6',
-    name          : 'Fun Day !',
-    startDateTime : new Date(now.getFullYear(), now.getMonth(), now.getDate()+7, 9, 14),
-    endDateTime   : new Date(now.getFullYear(), now.getMonth(), now.getDate()+7, 17),
-    classes       : 'color-3'
-  }
 ];
 
 export default class Agenda extends Component {
@@ -130,7 +88,7 @@ this.handleCellSelection = this.handleCellSelection.bind(this)
 obtenerItems = (citas) => {
     var listaCitas = [];
     citas.map( cite => {
-      const {nombre,id,codigo,date,day,time,centro,carrera,subject,startDateTime,endDateTime} = cite
+      const {nombre,id,codigo,date,day,time,centro,carrera,subject,classes,startDateTime,endDateTime} = cite
       const fechaDia = day.split('-')
       const dia = new Date(date * 1000);     
       if(cite.startDateTime){
@@ -139,7 +97,7 @@ obtenerItems = (citas) => {
         const start = new Date(startDateTime*1000)
         const end = new Date(endDateTime*1000)
           
-        
+        const timeEdit = `${start.getHours()}:00`
         
         const eventoEditado = {
           _id : id,
@@ -151,7 +109,8 @@ obtenerItems = (citas) => {
           centro,
           carrera,
           subject,                
-          classes:'color-2',
+          classes,
+          time:timeEdit
         }
         listaCitas.push(eventoEditado)
       } else{
@@ -309,6 +268,7 @@ editEvent (items , item){
     firebase.db.collection('cita')
               .doc(item._id)
               .update({
+                classes:item.classes,
                 startDateTime:item.startDateTime,
                 endDateTime:item.endDateTime
               })
@@ -347,8 +307,8 @@ this.setState({numberOfDays:days})
           minDate={new Date(now.getFullYear(), now.getMonth()-3)}
           maxDate={new Date(now.getFullYear(), now.getMonth()+3)}
           startDate={this.state.startDate}
-          startAtTime={8}
-          endAtTime={23}
+          startAtTime={7}
+          endAtTime={21}
           cellHeight={this.state.cellHeight}
           locale="es"
           items={this.state.items}

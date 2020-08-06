@@ -7,9 +7,12 @@ import Calendario from '../ui/Calendario';
 import Agenda from '../ui/Agenda';
 
 
-const Home = () => {
+const Home = (props) => {
     
-
+    console.log("--------------Carrera-----------------")
+    console.log(props)
+    const { displayName } = props.carrera
+    console.log(displayName)
     //context con las operaciones de Firebase
     const [citas,guardarCitas] = useState([])
     const { firebase } = useContext(FirebaseContext)
@@ -17,7 +20,7 @@ const Home = () => {
     //Cuando el componente sea montado obtener las citas de la base de datos
     useEffect(()=>{
         const obtenerCitas = () => {
-            firebase.db.collection('cita').onSnapshot(handleSnapshot)
+            firebase.db.collection('cita').where("carrera","==",displayName).onSnapshot(handleSnapshot)
         }
         obtenerCitas()
         
@@ -50,15 +53,16 @@ const Home = () => {
 
 
     return ( 
-        <>          
+        <>  
+            <h1>Página de citas</h1>            
             <Agenda />
-            <h1>Pagina de citas</h1>                                                
+                                                        
                 {/* <Calendario                     
                     cites = {citas}
                 />                        
              */}
             
-            <div className="contenedor">                
+            {/* <div className="contenedor">                
                 {citas.map( cite => (
                     <Cita 
                         key={cite.id}
@@ -67,7 +71,7 @@ const Home = () => {
                 ))}
 
                 
-            </div>            
+            </div>             */}
         </>
      );
 }
