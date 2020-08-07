@@ -1,10 +1,9 @@
 //Este componente es login y al acceder muestra el componente Agenda
 
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext} from 'react';
 import { useForm } from 'react-hook-form';
 import {FirebaseContext} from '../firebase';
-import { auth } from 'firebase';
-import {Link, Redirect} from 'react-router-dom';
+
 
 import '../css/global.css';
 import Agenda from '../ui/Agenda';
