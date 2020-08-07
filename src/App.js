@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -9,8 +8,8 @@ import {
 } from "react-router-dom";
 import firebase,{FirebaseContext} from './firebase';
 
-import Home from './paginas/home';
-import Login from './paginas/Login';
+
+import Home from './paginas/Login';
 import Register from './paginas/Register';
 
 function App() {
@@ -24,11 +23,8 @@ function App() {
         <Router>
             <Switch>
               <Route exact path="/">
-                <Login />
-              </Route>
-              <Route path="/agenda">
                 <Home />
-              </Route>
+              </Route>              
               <Route path="/registro">
                 <Register />
               </Route>

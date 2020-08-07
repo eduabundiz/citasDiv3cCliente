@@ -1,46 +1,45 @@
+//Este componente es login y al acceder muestra el componente Agenda
+
 import React, { useState, useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import {FirebaseContext} from '../firebase';
 import { auth } from 'firebase';
 import {Link, Redirect} from 'react-router-dom';
 
-import Home from './home';
+import '../css/global.css';
+import Agenda from '../ui/Agenda';
 
 const Login = (props) => {
 
-    const { register, handleSubmit } = useForm();
-    const { firebase } = useContext(FirebaseContext)
-    const [agendaVisible,setAgendaVisible] = useState(false)
+    const { register, handleSubmit } = useForm();   //Hook para formulario
+    const { firebase } = useContext(FirebaseContext) // Usar el contexto de firebase
+    const [agendaVisible,setAgendaVisible] = useState(false)    //Saber si generar login o la agenda
     const [user,setUser] = useState({})
+    const [error,setError] = useState(false)
 
     const onSubmit = (data) => {
-        const {email, nip}  = data
-        firebase.auth.signInWithEmailAndPassword(email,nip)
+        const {email, nip}  = data  
+        firebase.auth.signInWithEmailAndPassword(email,nip) //Hacer login con el correo y contraseña
+        
         firebase.auth.currentUser.getIdToken()
         .then((idToken)=>{
             console.log(idToken)
 
         })
-        var usuario = firebase.auth.currentUser;
-        console.log(usuario)
-        if(usuario.displayName){
-            
+        
+        var usuario = firebase.auth.curretUser;
+        console.log(usuario)        
+        if(usuario){ // Si existe esa cuenta guardar info de usuario y hacer visible la agenda            
             setUser(usuario)
             setAgendaVisible(true)
+            setError(false)
         }
         else {
             setAgendaVisible(false)
+            setError(true)
         }
     }
-
-    const [email,setEmail] = useState('')
-    const [nip,setNip] = useState('')
-
-    useEffect(()=>{
-        var miUser = firebase.auth.currentUser;
-        // console.log(miUser)
-    },[])
-
+    
 
     return ( 
         <>
@@ -48,7 +47,7 @@ const Login = (props) => {
             ? (
                 <div>                    
                     <p>{user.displayName}</p>
-                    <Home 
+                    <Agenda      
                         carrera={user}
                     />
                 </div>
@@ -60,6 +59,8 @@ const Login = (props) => {
                         <div className="baseLogin">
                             <img src={require("../img/DivecLogo.png")} className="logoDivec"/>                            
                             
+                            { error && <MostrarEror />}
+
                             <form className="form" 
                                 onSubmit={handleSubmit(onSubmit)}
                             >
@@ -69,7 +70,8 @@ const Login = (props) => {
                                     className="input"
                                     id="account"
                                     placeholder="example@correo.com"                                    
-                                    name="email"                                    
+                                    name="email"               
+                                    onClick = {()=>setError(false)}                     
                                 />
                                 <br/>
                                 <label className="label">Contraseña</label> <br/>
@@ -79,6 +81,7 @@ const Login = (props) => {
                                     className="input"
                                     name="nip"
                                     placeholder="********"                                                                        
+                                    onClick = {()=>setError(false)}
                                 />
                                 <input
                                     type="submit"
@@ -99,6 +102,14 @@ const Login = (props) => {
             
         </>
      );
+}
+
+const MostrarEror = () => {
+    return(
+    <>
+        <p className="error">No coinciden los datos</p>
+    </>
+    )
 }
  
 export default Login;
