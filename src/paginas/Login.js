@@ -18,25 +18,34 @@ const Login = (props) => {
 
     const onSubmit = (data) => {
         const {email, nip}  = data  
-        firebase.auth.signInWithEmailAndPassword(email,nip) //Hacer login con el correo y contraseña
         
+        firebase.auth.signInWithEmailAndPassword(email,nip) //Hacer login con el correo y contraseña
+        .then(function(){
+            var usuario = firebase.auth.currentUser;
+            console.log(usuario)        
+            
+            if(usuario){ // Si existe esa cuenta guardar info de usuario y hacer visible la agenda            
+                setUser(usuario)
+                setAgendaVisible(true)
+                setError(false)
+            }
+            else {
+                setAgendaVisible(false)
+                setError(true)
+            }
+        })
+        .catch(function(error){
+            console.log(error)
+            setError(true)
+        })
+
         firebase.auth.currentUser.getIdToken()
         .then((idToken)=>{
             console.log(idToken)
 
         })
         
-        var usuario = firebase.auth.currentUser;
-        console.log(usuario)        
-        if(usuario){ // Si existe esa cuenta guardar info de usuario y hacer visible la agenda            
-            setUser(usuario)
-            setAgendaVisible(true)
-            setError(false)
-        }
-        else {
-            setAgendaVisible(false)
-            setError(true)
-        }
+
     }
     
 
