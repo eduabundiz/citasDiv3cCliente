@@ -26,7 +26,7 @@ const Login = (props) => {
 
         })
         
-        var usuario = firebase.auth.curretUser;
+        var usuario = firebase.auth.currentUser;
         console.log(usuario)        
         if(usuario){ // Si existe esa cuenta guardar info de usuario y hacer visible la agenda            
             setUser(usuario)
@@ -110,5 +110,5 @@ const MostrarEror = () => {
     </>
     )
 }
- 
+    
 export default Login;
