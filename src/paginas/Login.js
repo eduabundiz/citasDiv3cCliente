@@ -39,11 +39,11 @@ const Login = (props) => {
             setError(true)
         })
 
-        firebase.auth.currentUser.getIdToken()
-        .then((idToken)=>{
-            console.log(idToken)
+        // firebase.auth.currentUser.getIdToken()
+        // .then((idToken)=>{
+        //     console.log(idToken)
 
-        })
+        // })
         
 
     }

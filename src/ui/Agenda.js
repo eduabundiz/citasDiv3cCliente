@@ -60,7 +60,18 @@
      
      //Consulta de firebase todas las citas que coincidan con el nombre de la carrera
      try{
-       firebase.db.collection('cita').where("carrera","==",displayName).onSnapshot(this.handleSnapshot) //handleSnapshot para suscribirnos en tiempo real
+      if(displayName=='INCO'||displayName=="COM"){  //Si es de compu
+        firebase.db.collection('cita').where("carrera","==","INCO").onSnapshot(this.handleSnapshot) 
+        firebase.db.collection('cita').where("carrera","==","COM").onSnapshot(this.handleSnapshot) 
+      }
+      else if(displayName == 'INFO'){   //si es info
+        firebase.db.collection('cita').where("carrera","==","INFO").onSnapshot(this.handleSnapshot) 
+        firebase.db.collection('cita').where("carrera","==","INNI").onSnapshot(this.handleSnapshot) 
+      }
+      else{
+        firebase.db.collection('cita').where("carrera","==",displayName).onSnapshot(this.handleSnapshot) //handleSnapshot para suscribirnos en tiempo real
+      }
+       
      } catch(e){
        console.log(e)
      }
@@ -276,10 +287,10 @@
    render() {
  
      var AgendaItem = function(props){
-       console.log( ' item component props' , props)
+       console.log( ' item component props' , props)       
        const {subject} = props.item;
        return ( 
-         <div style={{display:'block', position:'absolute' , background:'#FFF'}}>{props.item.name} 
+         <div style={{display:'block', position:'absolute' , background:'transparent'}}>{props.item.name} 
            <p>{subject}</p>
            <button onClick={()=> props.edit(props.item)}>Edit </button>
          </div>)
@@ -312,7 +323,7 @@
            rowsPerHour={this.state.rowsPerHour}
            itemColors={colors}
            helper={true}
-           // itemComponent={AgendaItem}
+          //  itemComponent={AgendaItem}
            view="calendar"
            autoScale={false}
            fixedHeader={true}
@@ -327,7 +338,9 @@
            this.state.showModal 
            ?  <Modal clickOutside={this._closeModal} >
                <div className="modal-content">
-                 <ReactAgendaCtrl items={this.state.items} itemColors={colors} selectedCells={this.state.selected} Addnew={this.addNewEvent} edit={this.editEvent}  />
+                 <ReactAgendaCtrl items={this.state.items} itemColors={colors} selectedCells={this.state.selected} Addnew={this.addNewEvent} edit={this.editEvent} >
+                  <p>Que tranza</p>
+                 </ReactAgendaCtrl>
  
                </div>
              </Modal>:''

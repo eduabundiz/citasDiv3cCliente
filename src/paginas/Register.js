@@ -10,17 +10,19 @@ const Register = (props) => {
     const {firebase} = useContext(FirebaseContext);
 
     const { register, handleSubmit } = useForm();
+    
+    const [carrera,setCarrera] = useState('')
 
     const onSubmit = (data) => {
-        const {carrera,email, nip}  = data
+        const {email, nip}  = data
+       
+       firebase.crearCuentaEmailPass(email,nip,carrera)
        console.log(carrera,email,nip)
-       firebase.crearCuentaEmailPass(email,nip,carrera  )
+    }    
+
+    const onChangeDegree = (event) =>{
+        setCarrera(event.target.value)        
     }
-
-    const [email,setEmail] = useState('')
-    const [nip,setNip] = useState('')
-
- 
    
     return ( 
         <>
@@ -34,13 +36,21 @@ const Register = (props) => {
                                 onSubmit={handleSubmit(onSubmit)}
                             >
                                 <label className="label">Carrera</label>  <br/>
-                                <input 
+                                <select value={carrera} onChange={onChangeDegree} className="input">
+                                    <option value="INCO">INCO - Ingeniería en Computación</option>
+                                    <option value="INFO">INFO - Ingeniería en Informática</option>
+                                    <option value="INCEL">INCEL - Ingeniería en Comunicaciones y Electrónica</option>
+                                    <option value="INBI">INBI - Ingeniería en Biomédica</option>
+                                    <option value="INRO">INRO - Ingeniería en Robótica</option>
+                                </select>
+                                {/* <input 
                                     ref={register}
                                     className="input"
                                     id="carrera"
                                     placeholder="INCO"
                                     name="carrera"
-                                /> <br />
+                                />  */}
+                                <br />
                                 <label className="label">Cuenta</label>  <br/>
                                 <input
                                     ref={register}
